@@ -1,0 +1,363 @@
+#
+# Author: Joyce Woznica
+# Class: IST 719
+# Date: 2/10/2020
+# Subject: Lab 5, Week 5 
+#
+# Lab 5
+
+# load sales data we used before
+
+#------ Load Data ----------------
+my.dir <- "/Users/joycewoznica/IST719/Labs/Lab5/"
+tweets <- read.csv("/Users/joycewoznica/IST719/Labs/Lab5/climateTweets_UseForLecture_25K.csv", 
+                  header=TRUE, 
+                  quote = "\"",
+                  stringsAsFactors = FALSE)
+
+#------ Clean Data ----------------
+my.media <- tweets$media
+head(my.media)
+table(my.media)
+
+install.packages("alluvial")
+library(alluvial)
+
+sales <- read.csv("/Users/joycewoznica/IST719/Labs/Lab3/sales.csv", 
+                  header=TRUE, stringsAsFactors = FALSE)
+
+alluv.df <- aggregate(sales$units.sold, 
+                      list(sales$rep.region, sales$type),
+                      sum)
+colnames(alluv.df) <- c("reg", "type", "units.sold")
+
+# plot
+alluvial(alluv.df[ ,1:2], freq = alluv.df$units.sold)
+
+# add some color
+my.cols <- rep("gold", nrow(alluv.df))
+my.cols[alluv.df$type == "red"] <- "red"
+alluvial(alluv.df[ ,1:2], freq = alluv.df$units.sold, col=my.cols)
+
+alluvial(alluv.df[ ,1:2], freq = alluv.df$units.sold, col=ifelse(alluv.df$type == "red", "red", "gold"))
+
+options(stringsAsFactors = FALSE)
+
+# new data set
+alluv.df <- aggregate(sales$units.sold, 
+                      list(sales$rep.region, 
+                           sales$type,
+                           sales$wine),
+                      sum)
+colnames(alluv.df) <- c("reg", "type", "wine", "units.sold")
+# use the first 3 columsn
+alluvial(alluv.df[ ,1:3], freq = alluv.df$units.sold, 
+         col=ifelse(alluv.df$type == "red", "red", "gold"))
+
+alluvial(alluv.df[ ,1:3], freq = alluv.df$units.sold, 
+         col=ifelse(alluv.df$type == "red", "red", "gold"),
+         cex = 0.75, border = "black")
+
+my.media <- gsub("\\|photo", "", my.media)
+
+table(my.media)
+
+#------ Pie Chart -------------------
+pie(100 * round(table(my.media)/sum(table(my.media)),4))
+
+#----- Looking at Dates -------------
+date.created <- tweets$created_at
+# Day Mmm dd HH:MM:SS +xxxx YYYY
+conversion.string <- "%a %b %d %H:%M:%S +0000 %Y"
+tmp <- strptime (date.created, conversion.string)
+class(tmp)
+any(is.na(tmp))
+# get rid of tmp
+rm(tmp)
+
+# testing with dates
+tmp <- "10AM and 27 minutes, on June 22, 1999"
+str <- "%H%p and %M minutes, on %B %d, %Y"
+strptime(tmp, str)
+rm(tmp)
+
+# the tweet dates
+tweets$date <- strptime (date.created, conversion.string)
+
+# now can use date functions
+min(tweets$date)
+max(tweets$date)
+range(tweets$date)
+summary(tweets$date)
+
+difftime(min(tweets$date), max(tweets$date))
+difftime(min(tweets$date), max(tweets$date), units = "min")
+difftime(min(tweets$date), max(tweets$date), units = "weeks")
+
+library(lubridate)
+
+# what day of the week (numeric) w/o label
+wday(tweets$date[1:3], label = TRUE, abbr = TRUE)
+
+#------- Plots with Time --------------
+# what day of weeks is tweeing most popular about climate change
+barplot(table(wday(tweets$date, label = TRUE, abbr = TRUE)))
+
+# if we know Wednesday is the most - could be time zone issue
+# our data is in GMT
+
+# offset from the tweet location in timezone in seconds from UTC
+tmp <- tweets$user_utc_offset
+tweets$date[7:10] + tmp[7:10]
+
+known.times <- tweets$date + tweets$user_utc_offset
+# now get rid of NAs
+index <- which(is.na(known.times))
+known.times <- known.times[-index]
+# shows us the time of day that people might be tweeting
+barplot(table(hour(known.times)))
+
+# tweets per minutes
+# before 24-june and 26--june
+start.date <- as.POSIXct("2016-06-24 23:59:59")
+end.date <- as.POSIXct("2016-06-26 00:00:00")
+index <- which((tweets$date > start.date) & (tweets$date < end.date))
+tweets.25th <- tweets$date[index]
+# this returns strings, not dates
+format.Date(tweets.25th, "%Y%m%d%H%M")
+# converts back to dates stripped of all seconds
+tmp.date <- as.POSIXct(strptime(format.Date(tweets.25th, "%Y%m%d%H%M"),
+                                "%Y%m%d%H%M")) 
+  
+plot(table(tmp.date))
+length(table(tmp.date))
+# but 24 * 60 - missing many minutes = 1440
+# need to include the blank minutes
+tmp.tab <- table(tmp.date)
+plot(as.POSIXct(names(tmp.tab)), as.numeric(tmp.tab))
+plot(as.POSIXct(names(tmp.tab)), as.numeric(tmp.tab), type = "h")
+
+# creates a sequence of every minutes on the 25th
+x <- seq.POSIXt(from = start.date + 1, to = end.date - 1, by="min")
+y <- rep(0, length(x))
+# now fill in the proper y for the minutes in question
+y[match(names(tmp.tab), as.character(x))] <- as.numeric(tmp.tab)
+
+plot(x,y, type = "p", pch = 16, cex = 0.4)
+plot(x,y, type = "p", pch = ".", cex = 0.4)
+plot(x,y, type = "l")
+
+#--------- Tweet Text ------------
+tweets$text[5:10]
+
+# let's look for hashtags for worldcloud
+library(stringr)
+# look for a hashtag any string up to to a space (what if at the end of the tweet?)
+# beware of UPPERCASE "S"
+#** want to break into words **
+descripts <- rData$Incident.Description
+tags <- str_extract_all(tweets$text, "#\\S+", simplify = FALSE)
+# some cleaning up to do with the list
+# get rid of blank text 
+tags <- tags[lengths(tags) > 0]
+tags <- unlist(tags)
+# convert all to the same case
+tags <- tolower(tags)
+# clean up punctuation
+tags <- gsub("#|[[:punct:]]", "", tags)
+
+tags.tab <- sort(table(tags), decreasing = TRUE)
+tags.tab[1:10]
+
+# remove tags that only appear once or twice
+zap <- which(tags.tab < 3)
+tags.tab <- tags.tab[-zap]
+
+boxplot(as.numeric(tags.tab))
+plot(as.numeric(tags.tab))
+# very skewed data
+df <- data.frame(words = names(tags.tab), count = as.numeric(tags.tab),
+                 stringsAsFactors = FALSE)
+
+par(mfrow = c(3,3)) # 9 plots
+plot(df$count, main = "Raw")
+# convert to values between 0 and 1
+y <- df$count/max(df$count)
+plot(y, main = "0 - 1")
+plot(df$count^2, main = "^2")
+plot(df$count^(1/2), main = "^(1/2)")
+plot(df$count^(1/5), main = "^(1/5)")
+# we are looking at how to scale the data for the world cloud
+plot(log10(df$count), main = "Log10")
+# number of zeros - essentially log10
+log10(c(1,10,100,1000,1237,10000))
+# natural log
+plot(log(df$count), main = "Log")
+
+# careful scaling as could change the data story
+
+#--------- Word Cloud ---------------
+library(wordcloud)
+myPal <- colorRampPalette(c("gold", "red", "orange"))
+
+gc()
+
+wordcloud(df$words, df$count, scale = c(5, 0.5), min.freq = 1,
+          max.words = Inf, random.order = FALSE, random.color = FALSE,
+          ordered.colors = TRUE)
+
+index <- which(df$count > 10) # only use those that appear more than 10 times
+
+wordcloud(df$words[index], df$count, scale = c(5, 0.5), min.freq = 1,
+          max.words = Inf, random.order = FALSE, random.color = FALSE,
+          ordered.colors = TRUE, rot.per = 0, colors = myPal(length(df$words[index])))
+
+my.counts <- (df$count[index])^(1/2)
+wordcloud(df$words[index], my.counts, scale = c(5, 0.5), min.freq = 1,
+          max.words = Inf, random.order = FALSE, random.color = FALSE,
+          ordered.colors = TRUE, rot.per = 0, colors = myPal(length(df$words[index])))
+
+index <- which(df$count > 9) # only use those that appear more than 9 times
+par(mar=c(0,0,0,0), bg = "black")
+my.counts <- (df$count[index])^(1/2)
+myPal <- colorRampPalette(c("red", "orange3", "gold"))
+wordcloud(df$words[index], my.counts, scale = c(4, 0.4), min.freq = 1,
+          max.words = Inf, random.order = FALSE, random.color = FALSE,
+          ordered.colors = TRUE, rot.per = 0, colors = myPal(length(df$words[index])))
+
+index <- which(df$count > 8) # only use those that appear more than 8 times
+par(mar=c(0,0,0,0), bg = "black")
+my.counts <- (df$count[index])^(1/2)
+myPal <- colorRampPalette(c("blue", "green", "gold", "orange", "yellow", "red"))
+wordcloud(df$words[index], my.counts, scale = c(4, 0.4), min.freq = 1,
+          max.words = Inf, random.order = FALSE, random.color = FALSE,
+          ordered.colors = TRUE, rot.per = 0, colors = myPal(length(df$words[index])))
+
+#-------------- Categorical Plots ----------------------
+#---------- Alluvia Plot -----------
+install.packages("alluvial")
+library(alluvial)
+
+sales <- read.csv("/Users/joycewoznica/IST719/Labs/Lab3/sales.csv", 
+                  header=TRUE, stringsAsFactors = FALSE)
+
+alluv.df <- aggregate(sales$units.sold, 
+                      list(sales$rep.region, sales$type),
+                      sum)
+colnames(alluv.df) <- c("reg", "type", "units.sold")
+
+# plot
+alluvial(alluv.df[ ,1:2], freq = alluv.df$units.sold)
+
+# add some color
+my.cols <- rep("gold", nrow(alluv.df))
+my.cols[alluv.df$type == "red"] <- "red"
+alluvial(alluv.df[ ,1:2], freq = alluv.df$units.sold, col=my.cols)
+
+alluvial(alluv.df[ ,1:2], freq = alluv.df$units.sold, col=ifelse(alluv.df$type == "red", "red", "gold"))
+
+options(stringsAsFactors = FALSE)
+
+# new data set
+alluv.df <- aggregate(sales$units.sold, 
+                      list(sales$rep.region, 
+                           sales$type,
+                           sales$wine),
+                      sum)
+colnames(alluv.df) <- c("reg", "type", "wine", "units.sold")
+# use the first 3 columsn
+alluvial(alluv.df[ ,1:3], freq = alluv.df$units.sold, 
+         col=ifelse(alluv.df$type == "red", "red", "gold"))
+
+alluvial(alluv.df[ ,1:3], freq = alluv.df$units.sold, 
+         col=ifelse(alluv.df$type == "red", "red", "gold"),
+         cex = 0.75, border = "black")
+#--------------- Tree Plots ------------------------
+library(RColorBrewer)
+install.packages("treemap")
+library(treemap)
+
+colnames(sales)
+treemap(sales, index=c("rep.region"),
+        vSize = "income",
+        fontsize.labels = 12,
+        palette = "Greens")
+
+treemap(sales, index=c("rep.region"),
+        vSize = "income",
+        vColor = "units.sold",
+        type = "dens",
+        fontsize.labels = 18,
+        palette = "Greens")
+
+treemap(sales, index=c("rep.region"),
+        vSize = "income",
+        vColor = "units.sold",
+        type = "value",
+        fontsize.labels = 18,
+        palette = "OrRd")
+
+treemap(sales, index=c("rep.region", "sales.rep", "type"),
+        vSize = "income",
+        vColor = "units.sold",
+        type = "index",
+        fontsize.labels = 18,
+        palette = brewer.pal(8, "Set1"))
+
+#------------ Reiver Plot --------------
+install.packages("riverplot")
+library(riverplot)
+river <- riverplot.example()
+par(mfrow = c(2,1), mar=c(1,1,1,1))
+plot(river, srt = 90, lty = 1)
+
+x <- river
+x$edges
+x$nodes
+x$edges$Value[2] <- 45
+x$edges$Value[1] <- 15
+x$nodes$x[5] <- 5
+
+plot(x, srt=90, lty=1)
+# x seems to note (nodes) the platcement
+# we also changed the width
+
+df <- aggregate(sales$income, list(type = sales$type, wine = sales$wine),
+                sum)
+
+df <- df[order(df$type, df$x), ]
+# names of nodes in river plot
+node.name <- c("wine", unique(df$type), df$wine)
+# position of the data in river plot
+node.position <- c(1, 2, 2, 3, 3, 3, 3, 3, 3, 3)
+# gray for color to start
+node.color <- rep("gray", length(node.name))
+node.color <- c("deepskyblue", "red", "yellow",
+                "brown4", "firebrick3", "deeppink4",
+                "khaki1", "lightgoldenrod1", "gold",
+                "goldenrod1")
+
+node <- data.frame(ID = node.name,
+                   x = node.position,
+                   col = node.color,
+                   stringsAsFactors = FALSE)
+
+parent.nodes <- c("wine", "wine", df$type)
+child.nodes <- c("red", "white", df$wine)
+value <- c(sum(df$x[df$type == "red"]), sum(df$x[df$type == "white"]), df$x)
+edges <- data.frame(N1 = parent.nodes, N2 = child.nodes, Value = value)
+r <- makeRiver(node, edges)
+
+plot(r)
+par(mar=c(0,0,0,0))
+plot(r, lty = 1)
+
+#----------- Plots and MSWord ------------------
+
+dat <- tapply(sales$units.sold, list(sales$type, sales$rep.region), sum)
+
+barplot(dat, beside = TRUE, col = c("brown", "gold"),
+        main = "Units Sold by Region by Type")
+
+
+

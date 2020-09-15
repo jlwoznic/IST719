@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1578694960256.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "96B219B0",
+    "lastKnownWriteTime" : 0,
+    "last_content_update" : 1578694960256,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "28d42bbd59264336a59d8a6b5c14e5f4",
+        "name" : "raw.tweet",
+        "title" : "raw.tweet"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}

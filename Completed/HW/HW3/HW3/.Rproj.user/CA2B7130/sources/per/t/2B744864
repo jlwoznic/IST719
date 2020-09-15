@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1580511050860.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1801274085",
+    "id" : "2B744864",
+    "lastKnownWriteTime" : 1580692453,
+    "last_content_update" : 1580692453182,
+    "path" : "~/IST719/HW/HW3/Joyce_Woznica_HW3.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "132,0",
+        "scrollLine" : "98",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

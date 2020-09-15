@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1580861608896.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "112208963",
+    "id" : "55FC5CCF",
+    "lastKnownWriteTime" : 1580861814,
+    "last_content_update" : 1580861814046,
+    "path" : "~/IST719/Labs/Lab4/InClassW4.R",
+    "project_path" : "InClassW4.R",
+    "properties" : {
+        "cursorPosition" : "12,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

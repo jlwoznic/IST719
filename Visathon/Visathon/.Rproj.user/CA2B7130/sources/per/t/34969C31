@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1584395477672.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "34969C31",
+    "lastKnownWriteTime" : 140265763587736,
+    "last_content_update" : 1584395477672,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "869F21D4",
+        "caption" : "buoyData",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=buoyData&cache_key=869F21D4",
+        "displayedObservations" : "24325",
+        "environment" : "",
+        "expression" : "buoyData",
+        "object" : "buoyData",
+        "preview" : "0",
+        "totalObservations" : "24325",
+        "variables" : "12"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

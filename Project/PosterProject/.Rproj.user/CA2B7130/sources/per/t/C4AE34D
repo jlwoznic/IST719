@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1584193806272.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "54144360",
+    "id" : "C4AE34D",
+    "lastKnownWriteTime" : 1584918247,
+    "last_content_update" : 1584918247626,
+    "path" : "~/IST719/Project/PosterProject/Joyce_Woznica_Project.R",
+    "project_path" : "Joyce_Woznica_Project.R",
+    "properties" : {
+        "cursorPosition" : "4,21",
+        "scrollLine" : "0",
+        "source_window_id" : ""
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

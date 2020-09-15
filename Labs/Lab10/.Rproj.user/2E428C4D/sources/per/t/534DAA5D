@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1584214326389.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3898204893",
+    "id" : "534DAA5D",
+    "lastKnownWriteTime" : 1584214333,
+    "last_content_update" : 1584214333224,
+    "path" : "C:/Users/Joyce/Desktop/Syracuse/IST719/Labs/Lab10/app4/app.R",
+    "project_path" : "app4/app.R",
+    "properties" : {
+        "cursorPosition" : "7,66",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

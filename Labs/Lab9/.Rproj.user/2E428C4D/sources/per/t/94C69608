@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583539881987.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4252919852",
+    "id" : "94C69608",
+    "lastKnownWriteTime" : 1583804259,
+    "last_content_update" : 1583804259265,
+    "path" : "C:/Users/Joyce/Desktop/Syracuse/IST719/Labs/Lab9/Joyce_Woznica_Lab9.R",
+    "project_path" : "Joyce_Woznica_Lab9.R",
+    "properties" : {
+        "cursorPosition" : "302,19",
+        "scrollLine" : "282"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

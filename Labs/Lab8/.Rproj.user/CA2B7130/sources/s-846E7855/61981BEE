@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1582928333982.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3100215621",
+    "id" : "61981BEE",
+    "lastKnownWriteTime" : 1583080455,
+    "last_content_update" : 1583080455542,
+    "path" : "~/IST719/Labs/Lab8/Joyce_Woznica_Lab8.R",
+    "project_path" : "Joyce_Woznica_Lab8.R",
+    "properties" : {
+        "cursorPosition" : "220,14",
+        "scrollLine" : "192"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

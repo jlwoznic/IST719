@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1584395320994.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2671776156",
+    "id" : "289F81EE",
+    "lastKnownWriteTime" : 1584486466,
+    "last_content_update" : 1584486466818,
+    "path" : "~/IST719/Visathon/Visathon.R",
+    "project_path" : "../Visathon.R",
+    "properties" : {
+        "cursorPosition" : "96,30",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

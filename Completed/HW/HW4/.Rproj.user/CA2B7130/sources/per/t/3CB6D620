@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1580845827627.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1968674563",
+    "id" : "3CB6D620",
+    "lastKnownWriteTime" : 1581284062,
+    "last_content_update" : 1581284062006,
+    "path" : "~/IST719/HW/HW4/Joyce_Woznica_HW4.R",
+    "project_path" : "Joyce_Woznica_HW4.R",
+    "properties" : {
+        "cursorPosition" : "138,0",
+        "scrollLine" : "123"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
